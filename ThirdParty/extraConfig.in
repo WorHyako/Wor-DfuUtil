@@ -1,0 +1,15 @@
+#if WIN32
+
+#undef HAVE_UNISTD_H
+#undef HAVE_NANOSLEEP
+
+#include <basetsd.h>
+#include <sys/types.h>
+
+#ifndef SSIZE_MAX
+#define SSIZE_MAX INTPTR_MAX
+#endif
+
+typedef SSIZE_T ssize_t;
+
+#endif

@@ -5,9 +5,10 @@
 #include <cstdio>
 #include <filesystem>
 #include <fcntl.h>
+#include <io.h>
 #include <sstream>
 
-using namespace WorDfuUtils;
+using namespace WorDfuUtil;
 
 namespace {
 

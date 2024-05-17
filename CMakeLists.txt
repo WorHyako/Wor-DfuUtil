@@ -1,32 +1,33 @@
 cmake_minimum_required(VERSION 3.23)
 
-project(Wor-DfuUtils
-        LANGUAGES CXX)
+project(Wor-DfuUtil
+        VERSION 0.0.1
+        LANGUAGES CXX C
+        DESCRIPTION "")
 
 add_subdirectory(ThirdParty)
 
-if (NOT ${HaveConfig})
+if (NOT ${HaveConfig} OR ${HaveConfig} STREQUAL "")
     return()
 endif ()
 
 # --------------- #
 #   WorDfuUtils   #
 # --------------- #
-add_executable(WorDfuUtils)
+add_library(WorDfuUtil)
+
+target_compile_features(WorDfuUtil
+        PRIVATE cxx_std_17)
 
 file(GLOB Sources src/*.cpp)
-target_sources(WorDfuUtils
+target_sources(WorDfuUtil
         PRIVATE ${Sources})
 
-target_compile_options(WorDfuUtils
-        PRIVATE -std=c++17)
+target_include_directories(WorDfuUtil
+        PUBLIC include)
 
-target_include_directories(WorDfuUtils
-        PRIVATE include
-        ThirdParty/WorLibrary/Include)
+target_precompile_headers(WorDfuUtil
+        PUBLIC include/pch.hpp)
 
-target_precompile_headers(WorDfuUtils
-        PRIVATE include/pch.hpp)
-
-target_link_libraries(WorDfuUtils
-        PRIVATE dfu-util)
+target_link_libraries(WorDfuUtil
+        PUBLIC dfu-util)

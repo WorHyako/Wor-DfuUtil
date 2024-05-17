@@ -3,11 +3,11 @@ cmake_minimum_required(VERSION 3.23)
 # ---------- #
 #   libusb   #
 # ---------- #
-find_path(LibusbIncludeDir
+find_path(LibusbIncludeDir REQUIRED
         NAMES libusb.h
         PATH_SUFFIXES "include" "libusb" "libusb-1.0")
-find_library(LibusbLib
-        NAMES libusb-1.0.dylib
+find_library(LibusbLib REQUIRED
+        NAMES libusb-1.0.lib libusb-1.0.dylib
         PATH_SUFFIXES "lib" "lib32" "lib64")
 
 add_library(libusb INTERFACE)
@@ -16,16 +16,29 @@ target_link_libraries(libusb
 target_include_directories(libusb
         INTERFACE ${LibusbIncludeDir})
 
+set(DfuUtilRoot ${CMAKE_CURRENT_SOURCE_DIR}/dfu-util)
+set(DfuUtilSourceDir ${DfuUtilRoot}/src)
+
+# ------------------------ #
+#   Configuring dfu-util   #
+# ------------------------ #
+set(HaveConfig OFF)
+include(DfuUtilConfiguring.cmake)
+if (NOT ${HaveConfig})
+    return()
+endif ()
+
+if (NOT ${CMAKE_SOURCE_DIR} STREQUAL ${CMAKE_CURRENT_SOURCE_DIR})
+    set(HaveConfig ON PARENT_SCOPE)
+endif ()
+
 # ------------ #
 #   dfu-util   #
 # ------------ #
 project(dfu-util
-        LANGUAGES C)
-
-set(DfuUtilRoot ${CMAKE_CURRENT_SOURCE_DIR}/dfu-util)
-set(DfuUtilSourceDir ${DfuUtilRoot}/src)
-
-include(DfuUtilConfiguring.cmake)
+        VERSION 0.0.1
+        LANGUAGES C
+        DESCRIPTION "")
 
 add_library(dfu-util)
 
@@ -60,6 +73,7 @@ target_link_libraries(dfu-util
 #   dfu-util_exe   #
 # ---------------- #
 add_executable(dfu-util_exe)
+
 target_compile_definitions(dfu-util_exe
         PUBLIC -DHAVE_CONFIG_H)
 

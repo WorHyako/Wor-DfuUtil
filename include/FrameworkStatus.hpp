@@ -2,12 +2,12 @@
 
 #include <cstdint>
 
-namespace WorDfuUtils {
+namespace WorDfuUtil {
 
     /**
      * @brief   Describes framework status.
      *          <p/>
-     *          Describe both of LibUsb and dfu-util condition.
+     *          Describes both of LibUsb and dfu-util condition.
      *
      * @author  WorHyako
      */
