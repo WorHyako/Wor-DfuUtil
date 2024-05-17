@@ -2,6 +2,8 @@
 
 #include "libusb.h"
 
+#include "DfuUtilVariables.hpp"
+
 extern "C" {
 
 #ifdef HAVE_CONFIG_H

@@ -4,6 +4,7 @@
  * See DfuUtilVariables.cpp
  */
 extern "C" {
+
 extern int verbose;
 extern struct dfu_if *dfu_root;
 extern char *match_path;
@@ -18,4 +19,5 @@ extern int match_devnum;
 extern const char *match_iface_alt_name;
 extern const char *match_serial;
 extern const char *match_serial_dfu;
+
 }

@@ -63,6 +63,7 @@ target_sources(dfu-util
 
 target_include_directories(dfu-util
         PUBLIC
+        ${CMAKE_CURRENT_SOURCE_DIR}
         ${DfuUtilRoot}/src
         ${DfuUtilRoot})
 
